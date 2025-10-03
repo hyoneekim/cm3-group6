@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true },
   type: { type: String, required: true }, // e.g., Full-time, Part-time, Contract
@@ -18,6 +20,14 @@ const jobSchema = new mongoose.Schema({
   requirements: [String], // List of required skills or qualifications
 });
 
-////
-/////
+//add  virtual field id
+jobSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    return ret;
+  }
+});
+
+
 module.exports = mongoose.model('Job', jobSchema);
