@@ -1,30 +1,41 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 
 // pages & components
 import Home from "./pages/HomePage";
 import AddJobPage from "./pages/AddJobPage";
 import Navbar from "./components/Navbar";
-import NotFoundPage from "./pages/NotFoundPage";
-import JobPage from "./pages/JobPage";
-import EditJobPage from "./pages/EditJobPage";
+import NotFoundPage from "./pages/NotFoundPage"
+import SignUpPage from "./pages/SignUpPage";
 
 const App = () => {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Navbar />
-        <div className="content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/add-job" element={<AddJobPage />} />
-            <Route path="/edit-job/:id" element={<EditJobPage />} />
-            <Route path="/job-page/:id" element={<JobPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
-    </div>
-  );
-};
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-export default App;
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Navbar
+          isAuthenticated={isAuthenticated}
+          setIsAuthenticated={setIsAuthenticated}
+          />
+          <div className="content">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/add-job" element={<AddJobPage />} />
+              <Route
+                path="/sign-up"
+                element={!isAuthenticated ? (
+                  <SignUpPage isAuthenticated={isAuthenticated} setIsAuthenticated={setIsAuthenticated} />
+                ) : (
+                  <Navigate to="/" />
+                )}
+              />
+              <Route path='*' element={<NotFoundPage />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
+  
+  export default App;
