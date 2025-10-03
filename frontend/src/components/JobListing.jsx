@@ -1,10 +1,14 @@
-const JobListing = () => {
+const JobListing = ({ job }) => {
+  // console.log(job._id);
   return (
     <div className="job-preview">
-      <h2>Job Title</h2>
-      <p>Type: some title</p>
-      <p>Description: some description</p>
-      <p>Company: company xyz</p>
+      <h2>{job.title}</h2>
+      <p>Type: {job.type}</p>
+      <p>Description: {job.description}</p>
+      <p>Company: {job.company.name}</p>
+      <p>Location: {job.location}</p>
+      <p>Salary: {job.salary}</p>
+      <p>Requirements: {job.requirements}</p>
     </div>
   );
 };
