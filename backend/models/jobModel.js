@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 const jobSchema = new mongoose.Schema({
   title: { type: String, required: true },
   type: { type: String, required: true }, // e.g., Full-time, Part-time, Contract
@@ -23,8 +25,6 @@ const jobSchema = new mongoose.Schema({
 });
 
 
-/////
-///test///
 module.exports = mongoose.model('Job', jobSchema);
 
 
