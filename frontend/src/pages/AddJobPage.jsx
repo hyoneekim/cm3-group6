@@ -10,6 +10,8 @@ const AddJobPage = () => {
   const [companyName, setCompanyName] = useState("");
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [error, setError] = useState(null);
+
 
   const navigate = useNavigate();
 
@@ -21,10 +23,13 @@ const AddJobPage = () => {
         body: JSON.stringify(newJob)
       });
       if (!res.ok){
+        setError("Failed to add a job");
         throw new Error("Failed to add a job");
       }
+      setError("null");
     }catch (err){
       console.error(err);
+      setError(err.message);
     }
   };
   
@@ -39,9 +44,8 @@ const AddJobPage = () => {
       }
     };
     await addJob(newJob);
-    if (!error){
-      navigate("/");
-    }  
+    if (!error)
+      navigate("/");  
   };
 
   return (
@@ -78,7 +82,7 @@ const AddJobPage = () => {
         />
 
         <label>Salary:</label>
-        <input type="text"
+        <input type="number"
           required
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
@@ -100,7 +104,7 @@ const AddJobPage = () => {
         />
         <label>Contact Phone:</label>
         <input
-          type="phone"
+          type="tel"
           required
           value={contactPhone}
           onChange={(e) => setContactPhone(e.target.value)}

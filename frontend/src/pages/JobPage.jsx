@@ -56,12 +56,12 @@ const JobPage = () => {
           <p>Company: {job.company?.name}</p>
           <p>Email: {job.company?.contactEmail}</p>
           <p>Phone: {job.company?.contactPhone}</p>
-          <button onClick={deleteJob}>delete</button>
-          <button onClick={() => navigate(`/edit-job/${job._id}`)}>edit</button>
+          <button onClick={deleteJob}>Delete</button>
+          <button onClick={() => navigate(`/jobs/${job.id || job._id}/edit`)}>Edit</button>
         </>
       )}
     </div>
   )
 }
 
-export default JobPage
+export default JobPage;

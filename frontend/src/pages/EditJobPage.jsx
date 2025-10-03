@@ -12,7 +12,7 @@ const EditJobPage= () =>{
     const [contactEmail, setContactEmail] = useState("");
     const [contactPhone, setContactPhone] = useState("");
 
-    const {id} = useParams();    
+    const {id} = useParams();   
     const navigate = useNavigate();
 
     const updateJob = async (job) => {
@@ -121,7 +121,7 @@ const EditJobPage= () =>{
         />
 
         <label>Salary:</label>
-        <input type="text"
+        <input type="number"
           required
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
