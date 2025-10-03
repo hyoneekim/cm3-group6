@@ -1,6 +1,7 @@
 
 const Job = require("../models/jobModel");
 const mongoose = require("mongoose");
+///
 
 //GET / jobs;
 const getAllJobs = async (req, res) => {
