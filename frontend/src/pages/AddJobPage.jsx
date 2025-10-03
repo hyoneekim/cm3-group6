@@ -11,26 +11,36 @@ const AddJobPage = () => {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
 
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  const token = user ? user.token : null;
+
+  console.log("token", token);
+
   const navigate = useNavigate();
 
   const addJob = async (newJob) => {
     try {
+      console.log("Adding job:", newJob);
       const res = await fetch(`/api/jobs`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(newJob),
       });
       if (!res.ok) {
         throw new Error("Failed to add a job");
       }
+      return true;
     } catch (err) {
-      console.error(err);
+      console.error("Error adding job:", err);
+      return false;
     }
   };
 
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log("submitForm called");
 
     const newJob = {
       title,
@@ -44,9 +54,13 @@ const AddJobPage = () => {
         contactPhone,
       },
     };
-    await addJob(newJob);
-    console.log(newJob);
-    navigate("/");
+    const success = await addJob(newJob);
+    if (success) {
+      console.log("Job Added Successfully");
+      navigate("/");
+    } else {
+      console.error("Failed to add the job");
+    }
   };
 
   return (
