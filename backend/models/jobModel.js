@@ -22,5 +22,9 @@ const jobSchema = new mongoose.Schema({
   requirements: [String], // List of required skills or qualifications
 });
 
-///// hi
-module.exports = mongoose.model("Job", jobSchema);
+
+/////
+///test///
+module.exports = mongoose.model('Job', jobSchema);
+
+
