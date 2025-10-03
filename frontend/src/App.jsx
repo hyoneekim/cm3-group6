@@ -14,7 +14,7 @@ import LoginPage from "./pages/LoginPage";
 const App = () => {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(sessionStorage.getItem("user"));
     return user && user.token ? true : false;
   });
 
