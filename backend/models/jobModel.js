@@ -24,6 +24,14 @@ const jobSchema = new mongoose.Schema({
   requirements: [String], // List of required skills or qualifications
 });
 
+jobSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    return ret;
+  }
+});
+
 
 module.exports = mongoose.model('Job', jobSchema);
 

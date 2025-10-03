@@ -12,3 +12,14 @@ const userSchema = new Schema({
   address: { type: String, required: true },
   profile_picture: { type: String, required: false }
 }, { timestamps: true, versionKey: false });
+
+
+userSchema.set('toJSON', {
+  virtuals: true,
+  transform: (doc, ret) => {
+    ret.id = ret._id;
+    return ret;
+  }
+});
+
+module.exports = mongoose.model('User', userSchema);
