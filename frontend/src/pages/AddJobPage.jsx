@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {useNavigate} from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 
 const AddJobPage = () => {
   const [title, setTitle] = useState("");
@@ -13,35 +13,40 @@ const AddJobPage = () => {
 
   const navigate = useNavigate();
 
-  const addJob = async (newJob) =>{
-    try{
-      const res = await fetch(`/api/jobs`,{
+  const addJob = async (newJob) => {
+    try {
+      const res = await fetch(`/api/jobs`, {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(newJob)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newJob),
       });
-      if (!res.ok){
+      if (!res.ok) {
         throw new Error("Failed to add a job");
       }
-    }catch (err){
+    } catch (err) {
       console.error(err);
     }
   };
-  
+
   const submitForm = async (e) => {
     e.preventDefault();
     console.log("submitForm called");
 
-    const newJob ={
-      title, type, description, location, salary, 
-      company:{
-        name: companyName, contactEmail, contactPhone
-      }
+    const newJob = {
+      title,
+      type,
+      description,
+      location,
+      salary,
+      company: {
+        name: companyName,
+        contactEmail,
+        contactPhone,
+      },
     };
     await addJob(newJob);
-    if (!error){
-      navigate("/");
-    }  
+    console.log(newJob);
+    navigate("/");
   };
 
   return (
@@ -56,7 +61,7 @@ const AddJobPage = () => {
           onChange={(e) => setTitle(e.target.value)}
         />
         <label>Job type:</label>
-        <select value={type} onChange={(e) => setType(e.target.value)} >
+        <select value={type} onChange={(e) => setType(e.target.value)}>
           <option value="Full-Time">Full-Time</option>
           <option value="Part-Time">Part-Time</option>
           <option value="Remote">Remote</option>
@@ -71,14 +76,16 @@ const AddJobPage = () => {
         ></textarea>
 
         <label>Location:</label>
-        <input type="text"
+        <input
+          type="text"
           required
           value={location}
           onChange={(e) => setLocation(e.target.value)}
         />
 
         <label>Salary:</label>
-        <input type="text"
+        <input
+          type="text"
           required
           value={salary}
           onChange={(e) => setSalary(e.target.value)}
