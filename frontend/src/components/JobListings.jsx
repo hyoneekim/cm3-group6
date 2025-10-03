@@ -1,11 +1,11 @@
 import JobListing from "./JobListing";
 
-const JobListings = () => {
+const JobListings = ({ jobs }) => {
   return (
     <div className="job-list">
-      <JobListing />
-      <JobListing />
-      <JobListing />
+      {jobs.map((job, index) => (
+        <JobListing key={index} job={job} />
+      ))}
     </div>
   );
 };
